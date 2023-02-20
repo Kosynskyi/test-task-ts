@@ -22,16 +22,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const hooks_1 = require("hooks/hooks");
 const newsOperations_1 = require("redux/news/newsOperations");
+const newsSelectors_1 = require("redux/news/newsSelectors");
+const NewsList_1 = __importDefault(require("components/NewsList"));
 const NewsPage = () => {
+    const news = (0, hooks_1.useAppSelector)(newsSelectors_1.selectNews);
     const dispatch = (0, hooks_1.useAppDispatch)();
+    console.log(news);
     (0, react_1.useEffect)(() => {
         dispatch((0, newsOperations_1.getNews)());
     }, [dispatch]);
-    return <div>NewsList</div>;
+    return (<>
+      <NewsList_1.default items={news}/>
+    </>);
 };
 exports.default = NewsPage;
 //# sourceMappingURL=NewsPage.jsx.map

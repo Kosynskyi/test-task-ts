@@ -19,7 +19,7 @@ axios_1.default.defaults.baseURL = 'https://newsapi.org/v2/';
 const API_KEY = '836bb597fb1b4acbbbc25f3e3e38d94b';
 exports.getNews = (0, toolkit_1.createAsyncThunk)('news/getNews', (_, { rejectWithValue }) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { data } = yield (0, axios_1.default)(`top-headlines?country=ua&apiKey=${API_KEY}`);
+        const { data } = yield (0, axios_1.default)(`top-headlines?country=ua&page=1&apiKey=${API_KEY}`);
         return data.articles;
     }
     catch (error) {

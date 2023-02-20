@@ -9,7 +9,7 @@ export const getNews = createAsyncThunk(
   async (_, { rejectWithValue }): Promise<any> => {
     try {
       const { data } = await axios(
-        `top-headlines?country=ua&apiKey=${API_KEY}`
+        `top-headlines?country=ua&page=1&apiKey=${API_KEY}`
       );
       return data.articles;
     } catch (error: any) {
