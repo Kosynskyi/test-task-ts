@@ -22,13 +22,13 @@ function App() {
           <react_router_dom_1.Route path="registration" element={<RegistrationPage_1.default />}/>
 
           <react_router_dom_1.Route path="news" element={<NewsPage_1.default />}/>
+          
+
           <react_router_dom_1.Route path="profile" element={<ProfilePage_1.default />}/>
 
           <react_router_dom_1.Route path="*" element={<NotFoundPage_1.default />}/>
         </react_router_dom_1.Route>
       </react_router_dom_1.Routes>
-
-      <p>qwerqwerqwer</p>
     </material_1.Box>);
 }
 exports.default = App;

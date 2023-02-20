@@ -8,8 +8,12 @@ import RegistrationPage from 'pages/RegistrationPage';
 import NewsPage from 'pages/NewsPage';
 import ProfilePage from 'pages/ProfilePage';
 import NotFoundPage from 'pages/NotFoundPage';
+// import NewsList from './NewsList';
+// import { getNews2 } from 'redux/news/newsOperations';
 
 function App() {
+  // console.log(getNews2());
+
   return (
     <Box>
       <Routes>
@@ -19,13 +23,13 @@ function App() {
           <Route path="registration" element={<RegistrationPage />} />
 
           <Route path="news" element={<NewsPage />} />
+          {/* <Route path="news" element={<NewsList />} /> */}
+
           <Route path="profile" element={<ProfilePage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-
-      <p>qwerqwerqwer</p>
     </Box>
   );
 }

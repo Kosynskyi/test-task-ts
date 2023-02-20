@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAppDispatch } from 'hooks/hooks';
+import { getNews } from 'redux/news/newsOperations';
 
 const NewsPage: React.FC = () => {
-  return <div>NewsPage</div>;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, [dispatch]);
+
+  return <div>NewsList</div>;
 };
 
 export default NewsPage;
