@@ -12,15 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getNews = void 0;
+exports.deleteById = exports.getNews = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
 const axios_1 = __importDefault(require("axios"));
-axios_1.default.defaults.baseURL = 'https://newsapi.org/v2/';
-const API_KEY = '836bb597fb1b4acbbbc25f3e3e38d94b';
+axios_1.default.defaults.baseURL = 'https://63f4a51b3f99f5855db4226b.mockapi.io/news';
 exports.getNews = (0, toolkit_1.createAsyncThunk)('news/getNews', (_, { rejectWithValue }) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { data } = yield (0, axios_1.default)(`top-headlines?country=ua&page=1&apiKey=${API_KEY}`);
-        return data.articles;
+        const { data } = yield (0, axios_1.default)('news?p=1&l=10');
+        return data;
+    }
+    catch (error) {
+        return rejectWithValue(error.message);
+    }
+}));
+exports.deleteById = (0, toolkit_1.createAsyncThunk)('news/deleteById', (id, { rejectWithValue }) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield axios_1.default.delete(`/news/${id}`);
+        return id;
     }
     catch (error) {
         return rejectWithValue(error.message);

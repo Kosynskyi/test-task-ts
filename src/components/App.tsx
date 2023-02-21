@@ -19,7 +19,6 @@ function App() {
           <Route path="registration" element={<RegistrationPage />} />
 
           <Route path="news" element={<NewsPage />} />
-          {/* <Route path="news" element={<NewsList />} /> */}
 
           <Route path="profile" element={<ProfilePage />} />
 

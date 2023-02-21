@@ -16,10 +16,21 @@ exports.newsSlice = (0, toolkit_1.createSlice)({
             state.isLoading = true;
         });
         builder.addCase(newsOperations_1.getNews.fulfilled, (state, action) => {
-            state.news = [...state.news, ...action.payload];
+            state.news = action.payload;
             state.isLoading = false;
         });
         builder.addCase(newsOperations_1.getNews.rejected, state => {
+            state.isLoading = false;
+        });
+        builder.addCase(newsOperations_1.deleteById.pending, state => {
+            state.isLoading = true;
+        });
+        builder.addCase(newsOperations_1.deleteById.fulfilled, (state, action) => {
+            console.log('action', action);
+            state.news = state.news.filter(({ id }) => id !== action.payload);
+            state.isLoading = false;
+        });
+        builder.addCase(newsOperations_1.deleteById.rejected, state => {
             state.isLoading = false;
         });
     },

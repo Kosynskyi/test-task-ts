@@ -22,7 +22,6 @@ function App() {
           <react_router_dom_1.Route path="registration" element={<RegistrationPage_1.default />}/>
 
           <react_router_dom_1.Route path="news" element={<NewsPage_1.default />}/>
-          
 
           <react_router_dom_1.Route path="profile" element={<ProfilePage_1.default />}/>
 

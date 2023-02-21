@@ -1,25 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { getNews } from './newsOperations';
+import { getNews, deleteById } from './newsOperations';
 
-interface NewsState {
+interface INewsState {
   news: {
-    source: {
-      id: string | null;
-      name: string | null;
-    };
-    author: string | null;
-    title: string | null;
-    description: string | null;
-    url: string;
-    urlToImage: string | null;
-    publishedAt: string | null;
-    content: string | null;
+    publishedAt: string;
+    title: string;
+    description: string;
+    id: string;
   }[];
   isLoading: true | false;
 }
 
-const initialState: NewsState = {
+const initialState: INewsState = {
   news: [],
   isLoading: false,
 };
@@ -29,14 +22,35 @@ export const newsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    // =====================getNews=====================
     builder.addCase(getNews.pending, state => {
       state.isLoading = true;
     });
+    // builder.addCase(getNews.fulfilled, (state, action: PayloadAction<any>) => {
+    //   state.news = [...state.news, ...action.payload];
+    //   state.isLoading = false;
+    // });
     builder.addCase(getNews.fulfilled, (state, action: PayloadAction<any>) => {
-      state.news = [...state.news, ...action.payload];
+      state.news = action.payload;
       state.isLoading = false;
     });
     builder.addCase(getNews.rejected, state => {
+      state.isLoading = false;
+    });
+    // =====================deleteById=====================
+    builder.addCase(deleteById.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      deleteById.fulfilled,
+      (state, action: PayloadAction<string>) => {
+        console.log('action', action);
+
+        state.news = state.news.filter(({ id }) => id !== action.payload);
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(deleteById.rejected, state => {
       state.isLoading = false;
     });
   },

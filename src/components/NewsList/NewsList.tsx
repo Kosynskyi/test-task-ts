@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { getNews, deleteById } from 'redux/news/newsOperations';
+import { selectNews } from 'redux/news/newsSelectors';
+
 import {
   Box,
   Card,
   CardContent,
   Grid,
   CardActions,
-  Link,
+  // Link,
   Button,
   Typography,
 } from '@mui/material';
-// import { Link } from 'react-router-dom';
 
-interface IItem {
-  source: {
-    id: string | null;
-    name: string | null;
+const NewsList: React.FC = () => {
+  interface IItem {
+    publishedAt: string;
+    title: string;
+    description: string;
+    id: string;
+  }
+
+  const dispatch = useAppDispatch();
+  const news: IItem[] = useAppSelector(selectNews);
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, [dispatch]);
+
+  const deleteNews = (id: string) => {
+    dispatch(deleteById(id));
   };
-  author: string | null;
-  title: string | null;
-  description: string | null;
-  url: string;
-  urlToImage: string | null;
-  publishedAt: string | null;
-  content: string | null;
-}
-
-interface Iprops {
-  items: IItem[];
-}
-
-const NewsList: React.FC<Iprops> = ({ items }) => {
-  console.log(333);
-  console.log(items);
 
   return (
     <Box sx={{ p: 2 }}>
@@ -44,7 +44,7 @@ const NewsList: React.FC<Iprops> = ({ items }) => {
       </Typography>
       <Box sx={{ pt: 3 }}>
         <Grid container spacing={2}>
-          {items.map(item => (
+          {news.map(({ id, title, description }) => (
             <Grid
               sx={{ display: 'flex' }}
               item
@@ -52,21 +52,28 @@ const NewsList: React.FC<Iprops> = ({ items }) => {
               sm={6}
               md={4}
               lg={3}
-              key={item.publishedAt}
+              key={id}
             >
               <Card
                 sx={{
                   padding: 2,
+                  // height: '35vh',
+                  // overflow: 'auto',
                 }}
               >
-                <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
                   <Box sx={{ flexGrow: 1 }}>
-                    <Typography sx={{ fontWeight: 600 }}>
-                      {item.title}
+                    <Typography sx={{ marginBottom: 2, fontWeight: 600 }}>
+                      {title}
                     </Typography>
-                    <br />
-                    <Typography>{item.description}</Typography>
-                    <br />
+                    <Typography sx={{ marginBottom: 2 }}>
+                      {description}
+                    </Typography>
                   </Box>
                   <CardActions
                     sx={{
@@ -76,14 +83,20 @@ const NewsList: React.FC<Iprops> = ({ items }) => {
                       alignItems: 'center',
                     }}
                   >
-                    <Link
+                    {/* <Link
                       href={item.url}
                       color="inherit"
                       rel="noopener noreferrer"
                     >
                       Читати більше...
-                    </Link>
-                    <Button size="small">Видалити</Button>
+                    </Link> */}
+                    <Button
+                      type="submit"
+                      size="small"
+                      onClick={() => deleteNews(id)}
+                    >
+                      Видалити
+                    </Button>
                   </CardActions>
                 </CardContent>
               </Card>
@@ -91,8 +104,6 @@ const NewsList: React.FC<Iprops> = ({ items }) => {
           ))}
         </Grid>
       </Box>
-
-      {/* <ListItem></ListItem> */}
     </Box>
   );
 };
