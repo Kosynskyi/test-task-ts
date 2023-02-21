@@ -26,7 +26,6 @@ exports.newsSlice = (0, toolkit_1.createSlice)({
             state.isLoading = true;
         });
         builder.addCase(newsOperations_1.deleteById.fulfilled, (state, action) => {
-            console.log('action', action);
             state.news = state.news.filter(({ id }) => id !== action.payload);
             state.isLoading = false;
         });

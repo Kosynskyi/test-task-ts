@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
 import HomePage from 'pages/HomePage';
@@ -25,6 +27,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </Box>
   );
 }

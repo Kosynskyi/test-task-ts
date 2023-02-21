@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const react_router_dom_1 = require("react-router-dom");
+const react_toastify_1 = require("react-toastify");
+require("react-toastify/dist/ReactToastify.css");
 const material_1 = require("@mui/material");
 const SharedLayout_1 = __importDefault(require("./SharedLayout"));
 const HomePage_1 = __importDefault(require("pages/HomePage"));
@@ -28,6 +30,7 @@ function App() {
           <react_router_dom_1.Route path="*" element={<NotFoundPage_1.default />}/>
         </react_router_dom_1.Route>
       </react_router_dom_1.Routes>
+      <react_toastify_1.ToastContainer />
     </material_1.Box>);
 }
 exports.default = App;

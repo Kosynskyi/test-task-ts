@@ -44,8 +44,6 @@ export const newsSlice = createSlice({
     builder.addCase(
       deleteById.fulfilled,
       (state, action: PayloadAction<string>) => {
-        console.log('action', action);
-
         state.news = state.news.filter(({ id }) => id !== action.payload);
         state.isLoading = false;
       }
