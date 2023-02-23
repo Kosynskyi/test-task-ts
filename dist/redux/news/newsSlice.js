@@ -32,6 +32,16 @@ exports.newsSlice = (0, toolkit_1.createSlice)({
         builder.addCase(newsOperations_1.deleteById.rejected, state => {
             state.isLoading = false;
         });
+        builder.addCase(newsOperations_1.loadMoreNews.pending, state => {
+            state.isLoading = true;
+        });
+        builder.addCase(newsOperations_1.loadMoreNews.fulfilled, (state, action) => {
+            state.news.push(...action.payload);
+            state.isLoading = false;
+        });
+        builder.addCase(newsOperations_1.loadMoreNews.rejected, state => {
+            state.isLoading = false;
+        });
     },
 });
 exports.newsReducer = exports.newsSlice.reducer;

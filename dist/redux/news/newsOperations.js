@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteById = exports.getNews = void 0;
+exports.loadMoreNews = exports.deleteById = exports.getNews = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
 const axios_1 = __importDefault(require("axios"));
 const react_toastify_1 = require("react-toastify");
@@ -35,6 +35,15 @@ exports.deleteById = (0, toolkit_1.createAsyncThunk)('news/deleteById', (id, { r
             theme: 'colored',
         });
         return id;
+    }
+    catch (error) {
+        return rejectWithValue(error.message);
+    }
+}));
+exports.loadMoreNews = (0, toolkit_1.createAsyncThunk)('news/loadMoreNews', (page, { rejectWithValue }) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { data } = yield (0, axios_1.default)(`news?p=${page}&l=10`);
+        return data;
     }
     catch (error) {
         return rejectWithValue(error.message);

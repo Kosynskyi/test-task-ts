@@ -47,13 +47,14 @@ export const deleteById = createAsyncThunk(
   }
 );
 
-// export const getNews2 = async (): Promise<any> => {
-//   try {
-//     const { data } = await axios(
-//       `top-headlines?country=ua&page=1&apiKey=${API_KEY}`
-//     );
-//     return data.articles;
-//   } catch (error: any) {
-//     return error.message;
-//   }
-// };
+export const loadMoreNews = createAsyncThunk(
+  'news/loadMoreNews',
+  async (page: number, { rejectWithValue }): Promise<any> => {
+    try {
+      const { data } = await axios(`news?p=${page}&l=10`);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

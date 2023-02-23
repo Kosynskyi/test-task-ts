@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { getNews, deleteById } from 'redux/news/newsOperations';
+import { getNews, deleteById, loadMoreNews } from 'redux/news/newsOperations';
 import { selectNews } from 'redux/news/newsSelectors';
+import { getTotalNews } from 'apiNews/apiNews';
 
 import {
   Box,
@@ -9,7 +10,6 @@ import {
   CardContent,
   Grid,
   CardActions,
-  // Link,
   Button,
   Typography,
 } from '@mui/material';
@@ -22,15 +22,30 @@ const NewsList: React.FC = () => {
     id: string;
   }
 
+  const [showBtnLoadMore, setShowBtnLoadMore] = useState(true);
+  const [page, setPage] = useState(2);
   const dispatch = useAppDispatch();
   const news: IItem[] = useAppSelector(selectNews);
+  const [total, setTotal] = useState(news.length);
 
   useEffect(() => {
     dispatch(getNews());
+    getTotalNews().then(setTotal);
   }, [dispatch]);
 
   const deleteNews = (id: string) => {
     dispatch(deleteById(id));
+  };
+
+  const loadMore = (page: number) => {
+    setPage(prev => prev + 1);
+    dispatch(loadMoreNews(page));
+
+    if (Math.ceil(total / 10) === page) {
+      setShowBtnLoadMore(false);
+      setPage(1);
+      return;
+    }
   };
 
   return (
@@ -46,7 +61,7 @@ const NewsList: React.FC = () => {
         <Grid container spacing={2}>
           {news.map(({ id, title, description }) => (
             <Grid
-              sx={{ display: 'flex' }}
+              sx={{ display: 'flex', marginBottom: 2 }}
               item
               xs={12}
               sm={6}
@@ -83,13 +98,6 @@ const NewsList: React.FC = () => {
                       alignItems: 'center',
                     }}
                   >
-                    {/* <Link
-                      href={item.url}
-                      color="inherit"
-                      rel="noopener noreferrer"
-                    >
-                      Читати більше...
-                    </Link> */}
                     <Button
                       type="submit"
                       size="small"
@@ -103,6 +111,23 @@ const NewsList: React.FC = () => {
             </Grid>
           ))}
         </Grid>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {showBtnLoadMore && (
+            <Button
+              variant="outlined"
+              sx={{ marginX: 'auto' }}
+              onClick={() => loadMore(page)}
+            >
+              Завантажити більше
+            </Button>
+          )}
+        </Box>
       </Box>
     </Box>
   );

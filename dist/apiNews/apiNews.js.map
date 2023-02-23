@@ -1,1 +1,1 @@
-{"version":3,"file":"apiNews.js","sourceRoot":"","sources":["../../src/apiNews/apiNews.ts"],"names":[],"mappings":""}
+{"version":3,"file":"apiNews.js","sourceRoot":"","sources":["../../src/apiNews/apiNews.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AAAA,kDAA0B;AAEnB,MAAM,YAAY,GAAG,GAAuB,EAAE;IACnD,IAAI;QACF,MAAM,EAAE,IAAI,EAAE,GAAG,MAAM,IAAA,eAAK,EAAC,MAAM,CAAC,CAAC;QACrC,OAAO,IAAI,CAAC,MAAM,CAAC;KACpB;IAAC,OAAO,KAAU,EAAE;QACnB,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,OAAO,CAAC,CAAC;KAC5B;AACH,CAAC,CAAA,CAAC;AAPW,QAAA,YAAY,gBAOvB"}

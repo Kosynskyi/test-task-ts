@@ -27,15 +27,29 @@ const react_1 = __importStar(require("react"));
 const hooks_1 = require("hooks/hooks");
 const newsOperations_1 = require("redux/news/newsOperations");
 const newsSelectors_1 = require("redux/news/newsSelectors");
+const apiNews_1 = require("apiNews/apiNews");
 const material_1 = require("@mui/material");
 const NewsList = () => {
+    const [showBtnLoadMore, setShowBtnLoadMore] = (0, react_1.useState)(true);
+    const [page, setPage] = (0, react_1.useState)(2);
     const dispatch = (0, hooks_1.useAppDispatch)();
     const news = (0, hooks_1.useAppSelector)(newsSelectors_1.selectNews);
+    const [total, setTotal] = (0, react_1.useState)(news.length);
     (0, react_1.useEffect)(() => {
         dispatch((0, newsOperations_1.getNews)());
+        (0, apiNews_1.getTotalNews)().then(setTotal);
     }, [dispatch]);
     const deleteNews = (id) => {
         dispatch((0, newsOperations_1.deleteById)(id));
+    };
+    const loadMore = (page) => {
+        setPage(prev => prev + 1);
+        dispatch((0, newsOperations_1.loadMoreNews)(page));
+        if (Math.ceil(total / 10) === page) {
+            setShowBtnLoadMore(false);
+            setPage(1);
+            return;
+        }
     };
     return (<material_1.Box sx={{ p: 2 }}>
       <material_1.Typography sx={{ marginBottom: 1, marginTop: 2, textAlign: 'center' }} variant="h5" component="h2">
@@ -43,7 +57,7 @@ const NewsList = () => {
       </material_1.Typography>
       <material_1.Box sx={{ pt: 3 }}>
         <material_1.Grid container spacing={2}>
-          {news.map(({ id, title, description }) => (<material_1.Grid sx={{ display: 'flex' }} item xs={12} sm={6} md={4} lg={3} key={id}>
+          {news.map(({ id, title, description }) => (<material_1.Grid sx={{ display: 'flex', marginBottom: 2 }} item xs={12} sm={6} md={4} lg={3} key={id}>
               <material_1.Card sx={{
                 padding: 2,
             }}>
@@ -65,7 +79,6 @@ const NewsList = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
             }}>
-                    
                     <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)}>
                       Видалити
                     </material_1.Button>
@@ -74,6 +87,15 @@ const NewsList = () => {
               </material_1.Card>
             </material_1.Grid>))}
         </material_1.Grid>
+        <material_1.Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}>
+          {showBtnLoadMore && (<material_1.Button variant="outlined" sx={{ marginX: 'auto' }} onClick={() => loadMore(page)}>
+              Завантажити більше
+            </material_1.Button>)}
+        </material_1.Box>
       </material_1.Box>
     </material_1.Box>);
 };

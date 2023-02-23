@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { getNews, deleteById } from './newsOperations';
+import { getNews, deleteById, loadMoreNews } from './newsOperations';
 
 interface INewsState {
   news: {
@@ -26,12 +26,9 @@ export const newsSlice = createSlice({
     builder.addCase(getNews.pending, state => {
       state.isLoading = true;
     });
-    // builder.addCase(getNews.fulfilled, (state, action: PayloadAction<any>) => {
-    //   state.news = [...state.news, ...action.payload];
-    //   state.isLoading = false;
-    // });
     builder.addCase(getNews.fulfilled, (state, action: PayloadAction<any>) => {
       state.news = action.payload;
+      // state.news = [...state.news, ...action.payload];
       state.isLoading = false;
     });
     builder.addCase(getNews.rejected, state => {
@@ -49,6 +46,21 @@ export const newsSlice = createSlice({
       }
     );
     builder.addCase(deleteById.rejected, state => {
+      state.isLoading = false;
+    });
+    // =====================loadMoreNews=====================
+    builder.addCase(loadMoreNews.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      loadMoreNews.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        // state.news = [...state.news, ...action.payload];
+        state.news.push(...action.payload);
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(loadMoreNews.rejected, state => {
       state.isLoading = false;
     });
   },
