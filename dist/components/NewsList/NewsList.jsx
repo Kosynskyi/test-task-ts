@@ -35,6 +35,7 @@ const NewsList = () => {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const news = (0, hooks_1.useAppSelector)(newsSelectors_1.selectNews);
     const [total, setTotal] = (0, react_1.useState)(news.length);
+    const isLoading = (0, hooks_1.useAppSelector)(newsSelectors_1.selectIsLoading);
     (0, react_1.useEffect)(() => {
         dispatch((0, newsOperations_1.getNews)());
         (0, apiNews_1.getTotalNews)().then(setTotal);
@@ -60,6 +61,7 @@ const NewsList = () => {
           {news.map(({ id, title, description }) => (<material_1.Grid sx={{ display: 'flex', marginBottom: 2 }} item xs={12} sm={6} md={4} lg={3} key={id}>
               <material_1.Card sx={{
                 padding: 2,
+                width: '100%',
             }}>
                 <material_1.CardContent sx={{
                 display: 'flex',
@@ -79,7 +81,7 @@ const NewsList = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
             }}>
-                    <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)}>
+                    <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)} disabled={isLoading}>
                       Видалити
                     </material_1.Button>
                   </material_1.CardActions>
@@ -87,12 +89,13 @@ const NewsList = () => {
               </material_1.Card>
             </material_1.Grid>))}
         </material_1.Grid>
+
         <material_1.Box sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-          {showBtnLoadMore && (<material_1.Button variant="outlined" sx={{ marginX: 'auto' }} onClick={() => loadMore(page)}>
+          {showBtnLoadMore && (<material_1.Button variant="outlined" sx={{ marginX: 'auto' }} onClick={() => loadMore(page)} disabled={isLoading}>
               Завантажити більше
             </material_1.Button>)}
         </material_1.Box>

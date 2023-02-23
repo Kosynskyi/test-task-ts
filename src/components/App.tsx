@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
-import HomePage from 'pages/HomePage';
-import LoginPage from 'pages/LoginPage';
-import RegistrationPage from 'pages/RegistrationPage';
-import NewsPage from 'pages/NewsPage';
-import ProfilePage from 'pages/ProfilePage';
-import NotFoundPage from 'pages/NotFoundPage';
+
+const HomePage = lazy(() => import('pages/HomePage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
+const NewsPage = lazy(() => import('pages/NewsPage'));
+const ProfilePage = lazy(() => import('pages/ProfilePage'));
+const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 function App() {
   return (

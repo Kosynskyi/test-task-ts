@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getNews, deleteById, loadMoreNews } from 'redux/news/newsOperations';
-import { selectNews } from 'redux/news/newsSelectors';
+import { selectNews, selectIsLoading } from 'redux/news/newsSelectors';
 import { getTotalNews } from 'apiNews/apiNews';
+import Skeleton from 'components/Skeleton';
 
 import {
   Box,
@@ -27,6 +28,7 @@ const NewsList: React.FC = () => {
   const dispatch = useAppDispatch();
   const news: IItem[] = useAppSelector(selectNews);
   const [total, setTotal] = useState(news.length);
+  const isLoading: boolean = useAppSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(getNews());
@@ -72,8 +74,7 @@ const NewsList: React.FC = () => {
               <Card
                 sx={{
                   padding: 2,
-                  // height: '35vh',
-                  // overflow: 'auto',
+                  width: '100%',
                 }}
               >
                 <CardContent
@@ -102,6 +103,7 @@ const NewsList: React.FC = () => {
                       type="submit"
                       size="small"
                       onClick={() => deleteNews(id)}
+                      disabled={isLoading}
                     >
                       Видалити
                     </Button>
@@ -111,6 +113,7 @@ const NewsList: React.FC = () => {
             </Grid>
           ))}
         </Grid>
+
         <Box
           sx={{
             display: 'flex',
@@ -123,6 +126,7 @@ const NewsList: React.FC = () => {
               variant="outlined"
               sx={{ marginX: 'auto' }}
               onClick={() => loadMore(page)}
+              disabled={isLoading}
             >
               Завантажити більше
             </Button>
