@@ -81,7 +81,7 @@ const NewsList = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
             }}>
-                    <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)} disabled={isLoading}>
+                    <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)}>
                       Видалити
                     </material_1.Button>
                   </material_1.CardActions>

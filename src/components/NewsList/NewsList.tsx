@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getNews, deleteById, loadMoreNews } from 'redux/news/newsOperations';
 import { selectNews, selectIsLoading } from 'redux/news/newsSelectors';
 import { getTotalNews } from 'apiNews/apiNews';
-import Skeleton from 'components/Skeleton';
+// import Skeleton from 'components/Skeleton';
 
 import {
   Box,
@@ -103,7 +103,6 @@ const NewsList: React.FC = () => {
                       type="submit"
                       size="small"
                       onClick={() => deleteNews(id)}
-                      disabled={isLoading}
                     >
                       Видалити
                     </Button>
