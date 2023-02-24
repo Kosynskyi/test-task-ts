@@ -77,8 +77,8 @@ const LoginPage: React.FC = () => {
           >
             {/* input for login */}
             <TextField
-              id="email"
-              type="email"
+              id="login"
+              type="text"
               size="small"
               label="Login"
               sx={{ width: '100%' }}
@@ -94,10 +94,6 @@ const LoginPage: React.FC = () => {
               {...register('login', {
                 required: 'required',
                 maxLength: { value: 25, message: 'maximum 25 symbols' },
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'example@mail.com',
-                },
               })}
             />
             {errors.login && (

@@ -66,17 +66,13 @@ const LoginPage = () => {
           </material_1.Typography>
           <material_1.Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             
-            <material_1.TextField id="email" type="email" size="small" label="Login" sx={{ width: '100%' }} InputProps={{
+            <material_1.TextField id="login" type="text" size="small" label="Login" sx={{ width: '100%' }} InputProps={{
             startAdornment: (<material_1.InputAdornment position="start">
                     <Person_1.default />
                   </material_1.InputAdornment>),
         }} variant="standard" margin="dense" {...register('login', {
         required: 'required',
         maxLength: { value: 25, message: 'maximum 25 symbols' },
-        pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: 'example@mail.com',
-        },
     })}/>
             {errors.login && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
                 {(errors === null || errors === void 0 ? void 0 : errors.login) && ((_a = errors === null || errors === void 0 ? void 0 : errors.login) === null || _a === void 0 ? void 0 : _a.message)}
