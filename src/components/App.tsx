@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
 
@@ -13,6 +14,7 @@ const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 function App() {
+  // const { t, i18n } = useTranslation();
   return (
     <Box>
       <Routes>

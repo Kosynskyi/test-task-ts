@@ -11,6 +11,7 @@
     "strict": true,
     "sourceMap": true,
     "noUnusedLocals": false, //видає помилку, коли є оголошена, але невикористовувана змінна
+    "resolveJsonModule": true, //дозволяє імпортувати *.json файли
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
