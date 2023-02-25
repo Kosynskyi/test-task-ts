@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
 import Skeleton from './Skeleton';
+import BackToTop from './BackToTop';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
@@ -33,6 +34,7 @@ function App() {
           </Route>
         </Routes>
         <ToastContainer />
+        <BackToTop />
       </Box>
     </Suspense>
   );

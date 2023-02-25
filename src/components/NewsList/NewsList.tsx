@@ -106,7 +106,7 @@ const NewsList: React.FC = () => {
                       size="small"
                       onClick={() => deleteNews(id)}
                     >
-                      Видалити
+                      {t('newsPage.deleteNewsBtn')}
                     </Button>
                   </CardActions>
                 </CardContent>
