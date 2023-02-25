@@ -16,7 +16,7 @@ const UserNav: React.FC = () => {
           padding: 0,
         }}
       >
-        <StyledNavLink to="/">
+        <StyledNavLink to="/" end>
           <IconButton
             aria-label="home"
             size="large"
@@ -29,7 +29,7 @@ const UserNav: React.FC = () => {
           <IconButton
             aria-label="home"
             size="large"
-            sx={{ padding: 0, color: 'blue' }}
+            sx={{ padding: 0, marginLeft: 2, color: 'blue' }}
           >
             <NewspaperIcon fontSize="inherit" />
           </IconButton>

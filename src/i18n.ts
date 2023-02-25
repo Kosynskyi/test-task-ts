@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import translationUa from './locales/translationUa.json';
+import translationUk from './locales/translationUk.json';
 import translationEn from './locales/translationEn.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -15,7 +15,7 @@ i18n
     },
     resources: {
       ua: {
-        translation: translationUa,
+        translation: translationUk,
       },
       en: {
         translation: translationEn,

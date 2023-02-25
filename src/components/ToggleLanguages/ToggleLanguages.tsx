@@ -8,9 +8,9 @@ const ToggleLanguages: React.FC = () => {
   const [language, setLanguage] = useState('en');
 
   const toggleLang = (lang: string) => {
-    language === 'ua' || language === 'ru-UA'
+    language === 'uk' || language === 'ru-UA'
       ? setLanguage('en')
-      : setLanguage('ua');
+      : setLanguage('uk');
     i18n.changeLanguage(lang);
   };
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import '../../i18n';
 
 import {
   Box,
@@ -23,6 +25,8 @@ const RegistrationPage: React.FC = () => {
     login: string;
     password: string;
   };
+
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -68,7 +72,7 @@ const RegistrationPage: React.FC = () => {
       >
         <CardContent>
           <Typography variant="subtitle2" align="center" fontSize="18px">
-            Ласкаво просимо на формі реєстрації нового користувача
+            {t('registrationPage.title')}
           </Typography>
           <Box
             component="form"
@@ -80,7 +84,7 @@ const RegistrationPage: React.FC = () => {
               id="login"
               type="text"
               size="small"
-              label="Login"
+              label={t('registrationPage.helperTextLogin')}
               sx={{ width: '100%' }}
               InputProps={{
                 startAdornment: (
@@ -108,7 +112,7 @@ const RegistrationPage: React.FC = () => {
               autoComplete="false"
               type={showPassword ? 'text' : 'password'}
               size="small"
-              label="Password"
+              label={t('registrationPage.helperTextPassword')}
               sx={{ width: '100%' }}
               InputProps={{
                 startAdornment: (
@@ -158,14 +162,16 @@ const RegistrationPage: React.FC = () => {
                 width: '100%',
               }}
             >
-              Submit
+              {t('registrationPage.formButton')}
             </Button>
           </Box>
         </CardContent>
       </Card>
       <Typography sx={{ mt: 3 }}>
-        Вже маєш аккаунт? Тоді просто переходь{' '}
-        <StyledLink to="/login">сюди</StyledLink>
+        {t('registrationPage.additionalText')}{' '}
+        <StyledLink to="/login">
+          {t('registrationPage.additionalTextLink')}
+        </StyledLink>
       </Typography>
     </Box>
   );

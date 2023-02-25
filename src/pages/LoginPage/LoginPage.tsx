@@ -71,7 +71,7 @@ const LoginPage: React.FC = () => {
       >
         <CardContent>
           <Typography variant="subtitle2" align="center" fontSize="18px">
-            Просто ввійди та користуйся
+            {t('loginPage.title')}
           </Typography>
           <Box
             component="form"
@@ -83,7 +83,7 @@ const LoginPage: React.FC = () => {
               id="login"
               type="text"
               size="small"
-              label="Login"
+              label={t('loginPage.helperTextLogin')}
               sx={{ width: '100%' }}
               InputProps={{
                 startAdornment: (
@@ -111,7 +111,7 @@ const LoginPage: React.FC = () => {
               autoComplete="false"
               type={showPassword ? 'text' : 'password'}
               size="small"
-              label="Password"
+              label={t('loginPage.helperTextPassword')}
               sx={{ width: '100%' }}
               InputProps={{
                 startAdornment: (
@@ -161,14 +161,16 @@ const LoginPage: React.FC = () => {
                 width: '100%',
               }}
             >
-              Submit
+              {t('loginPage.formButton')}
             </Button>
           </Box>
         </CardContent>
       </Card>
       <Typography sx={{ mt: 3 }}>
-        Немаєш аккаута? Ось тут ти можеш{' '}
-        <StyledLink to="/registration">зареєструватись</StyledLink>
+        {t('loginPage.additionalText')}{' '}
+        <StyledLink to="/registration">
+          {t('loginPage.additionalTextLink')}
+        </StyledLink>
       </Typography>
     </Box>
   );

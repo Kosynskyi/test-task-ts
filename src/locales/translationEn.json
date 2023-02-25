@@ -17,6 +17,22 @@
     "deleteNewsBtn": "Delete",
     "loadMore": "Load more"
   },
+  "loginPage": {
+    "title": "Just login and use",
+    "helperTextLogin": "Login",
+    "helperTextPassword": "Password",
+    "formButton": "Login",
+    "additionalText": "Don't have account yet? Here you can ",
+    "additionalTextLink": "register"
+  },
+  "registrationPage": {
+    "title": "Welcome to the new user registration form",
+    "helperTextLogin": "Login",
+    "helperTextPassword": "Password",
+    "formButton": "Registration",
+    "additionalText": "Already have an account? Then just go ",
+    "additionalTextLink": "here"
+  },
   "notFoundPage": {
     "title": "page not found 🤷‍♀️, back to"
   }
