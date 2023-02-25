@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import '../../i18n';
 
 import { Box, IconButton, Typography } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
 const UserMenu: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -14,7 +17,7 @@ const UserMenu: React.FC = () => {
       }}
     >
       <Typography variant="body1" component="p">
-        Welcome,{' '}
+        {t('userMenu.greeting')}{' '}
         <Typography variant="body1" component="span" sx={{ fontWeight: 800 }}>
           name
         </Typography>

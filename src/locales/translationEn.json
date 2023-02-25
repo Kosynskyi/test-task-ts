@@ -1,3 +1,22 @@
 {
-  "Welcome to React": "Welcome to React and react-i18next"
+  "home": {
+    "title": "Welcome in Home page"
+  },
+  "profile": {
+    "title": "Welcome in your private page"
+  },
+  "authNav": {
+    "login": "Login",
+    "registration": "Registration"
+  },
+  "userMenu": {
+    "greeting": "Welcome,"
+  },
+  "newsPage": {
+    "title": "The main news of the country",
+    "loadMore": "Load more"
+  },
+  "notFoundPage": {
+    "title": "page not found 🤷‍♀️, back to"
+  }
 }

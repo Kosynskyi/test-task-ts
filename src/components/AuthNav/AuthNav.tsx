@@ -1,8 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import '../../i18n';
 import { Box, List, ListItem, Button } from '@mui/material/';
 import { StyledNavLink } from './AuthNav.styled';
 
 const AuthNav: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Box component="nav" aria-label="authorisation">
       <List
@@ -19,7 +23,7 @@ const AuthNav: React.FC = () => {
               size="medium"
               sx={{ color: '#096BDE', borderColor: '#6FB6FF' }}
             >
-              Login
+              {t('authNav.login')}
             </Button>
           </StyledNavLink>
         </ListItem>
@@ -35,7 +39,7 @@ const AuthNav: React.FC = () => {
                 marginLeft: '15px',
               }}
             >
-              Registration
+              {t('authNav.registration')}
             </Button>
           </StyledNavLink>
         </ListItem>

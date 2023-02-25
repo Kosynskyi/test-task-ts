@@ -5,6 +5,7 @@ import AuthNav from 'components/AuthNav';
 import UserMenu from 'components/UserMenu';
 import UserNav from 'components/UserNav';
 import Skeleton from 'components/Skeleton';
+import ToggleLanguages from 'components/ToggleLanguages';
 
 import { Box } from '@mui/material';
 
@@ -24,6 +25,7 @@ const SharedLayout: React.FC = () => {
       >
         <UserNav />
         <AuthNav />
+        <ToggleLanguages />
         <UserMenu />
       </Box>
       <Suspense fallback={<Skeleton />}>

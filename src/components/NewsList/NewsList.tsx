@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { useTranslation } from 'react-i18next';
+import '../../i18n';
 import { getNews, deleteById, loadMoreNews } from 'redux/news/newsOperations';
 import { selectNews, selectIsLoading } from 'redux/news/newsSelectors';
 import { getTotalNews } from 'apiNews/apiNews';
-// import Skeleton from 'components/Skeleton';
 
 import {
   Box,
@@ -23,6 +24,7 @@ const NewsList: React.FC = () => {
     id: string;
   }
 
+  const { t } = useTranslation();
   const [showBtnLoadMore, setShowBtnLoadMore] = useState(true);
   const [page, setPage] = useState(2);
   const dispatch = useAppDispatch();
@@ -57,7 +59,7 @@ const NewsList: React.FC = () => {
         variant="h5"
         component="h2"
       >
-        Головні новини країни
+        {t('newsPage.title')}
       </Typography>
       <Box sx={{ pt: 3 }}>
         <Grid container spacing={2}>
@@ -127,7 +129,7 @@ const NewsList: React.FC = () => {
               onClick={() => loadMore(page)}
               disabled={isLoading}
             >
-              Завантажити більше
+              {t('newsPage.loadMore')}
             </Button>
           )}
         </Box>

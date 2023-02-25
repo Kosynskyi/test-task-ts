@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import '../../i18n';
 
 import {
   Box,
@@ -23,6 +25,7 @@ const LoginPage: React.FC = () => {
     login: string;
     password: string;
   };
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
 

@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
+import '../../i18n';
 
 const ProfilePage: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -11,7 +14,10 @@ const ProfilePage: React.FC = () => {
         height: '100vh',
       }}
     >
-      <Typography variant="h2"> Вітаємо на Вашій приватній сторінці</Typography>
+      <Typography variant="h2" sx={{ textAlign: 'center' }}>
+        {' '}
+        {t('profile.title')}
+      </Typography>
     </Box>
   );
 };
