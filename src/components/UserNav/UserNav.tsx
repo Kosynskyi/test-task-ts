@@ -5,8 +5,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { StyledNavLink } from './UserNav.styled';
+import { useAuth } from 'redux/auth/authSelectors';
 
 const UserNav: React.FC = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Box>
       <List
@@ -34,17 +37,17 @@ const UserNav: React.FC = () => {
             <NewspaperIcon fontSize="inherit" />
           </IconButton>
         </StyledNavLink>
-        {/* {isLoggedIn && ( */}
-        <StyledNavLink to="/profile">
-          <IconButton
-            aria-label="profile"
-            size="large"
-            sx={{ padding: 0, marginLeft: 2, color: 'blue' }}
-          >
-            <AccountCircleIcon fontSize="inherit" />
-          </IconButton>
-        </StyledNavLink>
-        {/* )} */}
+        {isLoggedIn && (
+          <StyledNavLink to="/profile">
+            <IconButton
+              aria-label="profile"
+              size="large"
+              sx={{ padding: 0, marginLeft: 2, color: 'blue' }}
+            >
+              <AccountCircleIcon fontSize="inherit" />
+            </IconButton>
+          </StyledNavLink>
+        )}
       </List>
     </Box>
   );

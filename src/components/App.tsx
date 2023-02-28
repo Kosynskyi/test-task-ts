@@ -2,11 +2,13 @@ import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
 import Skeleton from './Skeleton';
 import BackToTop from './BackToTop';
+
+import PrivateRoute from './HOCs/PrivateRoute';
+import PublicRoute from './HOCs/PublicRoute';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
@@ -16,19 +18,22 @@ const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 function App() {
-  // const { t, i18n } = useTranslation();
   return (
     <Suspense fallback={<Skeleton />}>
       <Box>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="registration" element={<RegistrationPage />} />
 
-            <Route path="news" element={<NewsPage />} />
+            <Route element={<PublicRoute />}>
+              <Route path="login" element={<LoginPage />} />
+              <Route path="registration" element={<RegistrationPage />} />
+              <Route path="news" element={<NewsPage />} />
+            </Route>
 
-            <Route path="profile" element={<ProfilePage />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="profile" element={<ProfilePage />} />
+            </Route>
 
             <Route path="*" element={<NotFoundPage />} />
           </Route>

@@ -25,11 +25,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const hooks_1 = require("hooks/hooks");
+const react_i18next_1 = require("react-i18next");
+require("../../i18n");
 const newsOperations_1 = require("redux/news/newsOperations");
 const newsSelectors_1 = require("redux/news/newsSelectors");
 const apiNews_1 = require("apiNews/apiNews");
 const material_1 = require("@mui/material");
 const NewsList = () => {
+    const { t } = (0, react_i18next_1.useTranslation)();
     const [showBtnLoadMore, setShowBtnLoadMore] = (0, react_1.useState)(true);
     const [page, setPage] = (0, react_1.useState)(2);
     const dispatch = (0, hooks_1.useAppDispatch)();
@@ -54,7 +57,7 @@ const NewsList = () => {
     };
     return (<material_1.Box sx={{ p: 2 }}>
       <material_1.Typography sx={{ marginBottom: 1, marginTop: 2, textAlign: 'center' }} variant="h5" component="h2">
-        Головні новини країни
+        {t('newsPage.title')}
       </material_1.Typography>
       <material_1.Box sx={{ pt: 3 }}>
         <material_1.Grid container spacing={2}>
@@ -82,7 +85,7 @@ const NewsList = () => {
                 alignItems: 'center',
             }}>
                     <material_1.Button type="submit" size="small" onClick={() => deleteNews(id)}>
-                      Видалити
+                      {t('newsPage.deleteNewsBtn')}
                     </material_1.Button>
                   </material_1.CardActions>
                 </material_1.CardContent>
@@ -96,7 +99,7 @@ const NewsList = () => {
             justifyContent: 'center',
         }}>
           {showBtnLoadMore && (<material_1.Button variant="outlined" sx={{ marginX: 'auto' }} onClick={() => loadMore(page)} disabled={isLoading}>
-              Завантажити більше
+              {t('newsPage.loadMore')}
             </material_1.Button>)}
         </material_1.Box>
       </material_1.Box>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import {
   Box,
@@ -18,6 +19,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import { useAppDispatch } from 'hooks/hooks';
+import { setAuth } from 'redux/auth/authSlice';
 import { StyledLink } from './RegistrationPage.styled';
 
 const RegistrationPage: React.FC = () => {
@@ -25,6 +28,8 @@ const RegistrationPage: React.FC = () => {
     login: string;
     password: string;
   };
+
+  const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
 
@@ -47,6 +52,25 @@ const RegistrationPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = data => {
     console.log(data);
+    const auth = getAuth();
+    console.log(auth);
+    const login = data.login + '@gmail.com';
+    const password = data.password + '1';
+
+    createUserWithEmailAndPassword(auth, login, password)
+      .then(({ user }) => {
+        console.log(2222222222);
+        console.log('user ', user);
+
+        dispatch(
+          setAuth({
+            id: user.uid,
+            user: data.login,
+            token: user.uid,
+          })
+        );
+      })
+      .catch(console.error);
 
     reset();
   };

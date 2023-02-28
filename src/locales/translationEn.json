@@ -21,7 +21,7 @@
     "title": "Just login and use",
     "helperTextLogin": "Login",
     "helperTextPassword": "Password",
-    "formButton": "Login",
+    "formButton": "Log in",
     "additionalText": "Don't have account yet? Here you can ",
     "additionalTextLink": "register"
   },
@@ -29,7 +29,7 @@
     "title": "Welcome to the new user registration form",
     "helperTextLogin": "Login",
     "helperTextPassword": "Password",
-    "formButton": "Registration",
+    "formButton": "Sign up",
     "additionalText": "Already have an account? Then just go ",
     "additionalTextLink": "here"
   },

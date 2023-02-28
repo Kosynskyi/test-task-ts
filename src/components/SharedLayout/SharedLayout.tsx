@@ -6,10 +6,13 @@ import UserMenu from 'components/UserMenu';
 import UserNav from 'components/UserNav';
 import Skeleton from 'components/Skeleton';
 import ToggleLanguages from 'components/ToggleLanguages';
+import { useAuth } from 'redux/auth/authSelectors';
 
 import { Box } from '@mui/material';
 
 const SharedLayout: React.FC = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Box>
       <Box
@@ -24,9 +27,9 @@ const SharedLayout: React.FC = () => {
         }}
       >
         <UserNav />
-        <AuthNav />
+        {!isLoggedIn && <AuthNav />}
         <ToggleLanguages />
-        <UserMenu />
+        {isLoggedIn && <UserMenu />}
       </Box>
       <Suspense fallback={<Skeleton />}>
         <Outlet />

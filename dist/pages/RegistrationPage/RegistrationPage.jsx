@@ -28,14 +28,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_hook_form_1 = require("react-hook-form");
+const react_i18next_1 = require("react-i18next");
+require("../../i18n");
+const auth_1 = require("firebase/auth");
 const material_1 = require("@mui/material");
 const Person_1 = __importDefault(require("@mui/icons-material/Person"));
 const Lock_1 = __importDefault(require("@mui/icons-material/Lock"));
 const Visibility_1 = __importDefault(require("@mui/icons-material/Visibility"));
 const VisibilityOff_1 = __importDefault(require("@mui/icons-material/VisibilityOff"));
+const hooks_1 = require("hooks/hooks");
+const authSlice_1 = require("redux/auth/authSlice");
 const RegistrationPage_styled_1 = require("./RegistrationPage.styled");
 const RegistrationPage = () => {
     var _a, _b;
+    const dispatch = (0, hooks_1.useAppDispatch)();
+    const { t } = (0, react_i18next_1.useTranslation)();
     const [showPassword, setShowPassword] = (0, react_1.useState)(false);
     const handleClickShowPassword = () => setShowPassword(show => !show);
     const handleMouseDownPassword = (event) => {
@@ -44,6 +51,21 @@ const RegistrationPage = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = (0, react_hook_form_1.useForm)({ mode: 'onBlur' });
     const onSubmit = data => {
         console.log(data);
+        const auth = (0, auth_1.getAuth)();
+        console.log(auth);
+        const login = data.login + '@gmail.com';
+        const password = data.password + '1';
+        (0, auth_1.createUserWithEmailAndPassword)(auth, login, password)
+            .then(({ user }) => {
+            console.log(2222222222);
+            console.log('user ', user);
+            dispatch((0, authSlice_1.setAuth)({
+                id: user.uid,
+                user: data.login,
+                token: user.uid,
+            }));
+        })
+            .catch(console.error);
         reset();
     };
     return (<material_1.Box sx={{
@@ -62,11 +84,11 @@ const RegistrationPage = () => {
         }}>
         <material_1.CardContent>
           <material_1.Typography variant="subtitle2" align="center" fontSize="18px">
-            Ласкаво просимо на формі реєстрації нового користувача
+            {t('registrationPage.title')}
           </material_1.Typography>
           <material_1.Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             
-            <material_1.TextField id="login" type="text" size="small" label="Login" sx={{ width: '100%' }} InputProps={{
+            <material_1.TextField id="login" type="text" size="small" label={t('registrationPage.helperTextLogin')} sx={{ width: '100%' }} InputProps={{
             startAdornment: (<material_1.InputAdornment position="start">
                     <Person_1.default />
                   </material_1.InputAdornment>),
@@ -79,7 +101,7 @@ const RegistrationPage = () => {
               </material_1.Typography>)}
 
             
-            <material_1.TextField id="password" autoComplete="false" type={showPassword ? 'text' : 'password'} size="small" label="Password" sx={{ width: '100%' }} InputProps={{
+            <material_1.TextField id="password" autoComplete="false" type={showPassword ? 'text' : 'password'} size="small" label={t('registrationPage.helperTextPassword')} sx={{ width: '100%' }} InputProps={{
             startAdornment: (<material_1.InputAdornment position="start">
                     <Lock_1.default />
                   </material_1.InputAdornment>),
@@ -105,14 +127,16 @@ const RegistrationPage = () => {
             borderRadius: '25px',
             width: '100%',
         }}>
-              Submit
+              {t('registrationPage.formButton')}
             </material_1.Button>
           </material_1.Box>
         </material_1.CardContent>
       </material_1.Card>
       <material_1.Typography sx={{ mt: 3 }}>
-        Вже маєш аккаунт? Тоді просто переходь{' '}
-        <RegistrationPage_styled_1.StyledLink to="/login">сюди</RegistrationPage_styled_1.StyledLink>
+        {t('registrationPage.additionalText')}{' '}
+        <RegistrationPage_styled_1.StyledLink to="/login">
+          {t('registrationPage.additionalTextLink')}
+        </RegistrationPage_styled_1.StyledLink>
       </material_1.Typography>
     </material_1.Box>);
 };

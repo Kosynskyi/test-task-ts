@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import {
   Box,
@@ -18,13 +19,18 @@ import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import { useAppDispatch } from 'hooks/hooks';
+import { setAuth } from 'redux/auth/authSlice';
 import { StyledLink } from './LoginPage.styled';
 
 const LoginPage: React.FC = () => {
-  type Inputs = {
+  interface IInputs {
     login: string;
     password: string;
-  };
+  }
+
+  const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,10 +48,25 @@ const LoginPage: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>({ mode: 'onBlur' });
+  } = useForm<IInputs>({ mode: 'onBlur' });
 
-  const onSubmit: SubmitHandler<Inputs> = data => {
+  const onSubmit: SubmitHandler<IInputs> = data => {
     console.log(data);
+    const auth = getAuth();
+    const login = data.login + '@gmail.com';
+    const password = data.password + '1';
+
+    signInWithEmailAndPassword(auth, login, password)
+      .then(({ user }) => {
+        dispatch(
+          setAuth({
+            id: user.uid,
+            user: data.login,
+            token: user.uid,
+          })
+        );
+      })
+      .catch(console.error);
 
     reset();
   };

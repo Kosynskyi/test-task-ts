@@ -28,7 +28,6 @@ export const newsSlice = createSlice({
     });
     builder.addCase(getNews.fulfilled, (state, action: PayloadAction<any>) => {
       state.news = action.payload;
-      // state.news = [...state.news, ...action.payload];
       state.isLoading = false;
     });
     builder.addCase(getNews.rejected, state => {

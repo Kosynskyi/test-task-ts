@@ -11,6 +11,7 @@ const react_router_dom_1 = require("react-router-dom");
 require("./index.css");
 const App_1 = __importDefault(require("./components/App"));
 const store_1 = require("redux/store");
+require("./firebase");
 const root = client_1.default.createRoot(document.getElementById('root'));
 root.render(<react_1.default.StrictMode>
     <react_redux_1.Provider store={store_1.store}>

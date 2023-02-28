@@ -22,7 +22,7 @@
     "helperTextLogin": "Логін",
     "helperTextPassword": "Пароль",
     "formButton": "Вхід",
-    "additionalText": "Немаєш аккаута? Ось тут ти можеш ",
+    "additionalText": "Не маєш аккаунта? Ось тут ти можеш ",
     "additionalTextLink": "зареєструватись"
   },
   "registrationPage": {
@@ -30,7 +30,7 @@
     "helperTextLogin": "Логін",
     "helperTextPassword": "Пароль",
     "formButton": "Зареєструватись",
-    "additionalText": "Вже маєш аккаута? Тоді просто переходь ",
+    "additionalText": "Вже маєш аккаунт? Тоді просто переходь ",
     "additionalTextLink": "сюди"
   },
   "notFoundPage": {

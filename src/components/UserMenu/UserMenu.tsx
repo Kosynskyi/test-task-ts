@@ -5,8 +5,15 @@ import '../../i18n';
 import { Box, IconButton, Typography } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
+import { useAppDispatch } from 'hooks/hooks';
+import { logOut } from 'redux/auth/authSlice';
+import { useAuth } from 'redux/auth/authSelectors';
+
 const UserMenu: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { user } = useAuth();
+
   return (
     <Box
       sx={{
@@ -19,7 +26,7 @@ const UserMenu: React.FC = () => {
       <Typography variant="body1" component="p">
         {t('userMenu.greeting')}{' '}
         <Typography variant="body1" component="span" sx={{ fontWeight: 800 }}>
-          name
+          {user}
         </Typography>
       </Typography>
       <IconButton
@@ -27,8 +34,10 @@ const UserMenu: React.FC = () => {
         aria-label="log out"
         sx={{ color: 'red', marginLeft: '15px' }}
         // disabled={isLoading}
-        type="button"
-        // onClick={handleClick}
+        type="submit"
+        onClick={() => {
+          dispatch(logOut());
+        }}
       >
         <Logout />
       </IconButton>

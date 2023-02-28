@@ -32,8 +32,11 @@ const AuthNav_1 = __importDefault(require("components/AuthNav"));
 const UserMenu_1 = __importDefault(require("components/UserMenu"));
 const UserNav_1 = __importDefault(require("components/UserNav"));
 const Skeleton_1 = __importDefault(require("components/Skeleton"));
+const ToggleLanguages_1 = __importDefault(require("components/ToggleLanguages"));
+const authSelectors_1 = require("redux/auth/authSelectors");
 const material_1 = require("@mui/material");
 const SharedLayout = () => {
+    const { isLoggedIn } = (0, authSelectors_1.useAuth)();
     return (<material_1.Box>
       <material_1.Box component="header" sx={{
             display: 'flex',
@@ -44,8 +47,9 @@ const SharedLayout = () => {
             backgroundColor: 'grey',
         }}>
         <UserNav_1.default />
-        <AuthNav_1.default />
-        <UserMenu_1.default />
+        {!isLoggedIn && <AuthNav_1.default />}
+        <ToggleLanguages_1.default />
+        {isLoggedIn && <UserMenu_1.default />}
       </material_1.Box>
       <react_1.Suspense fallback={<Skeleton_1.default />}>
         <react_router_dom_1.Outlet />

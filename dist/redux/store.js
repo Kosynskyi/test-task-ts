@@ -8,15 +8,23 @@ const toolkit_1 = require("@reduxjs/toolkit");
 const redux_persist_1 = require("redux-persist");
 const storage_1 = __importDefault(require("redux-persist/lib/storage"));
 const newsSlice_1 = require("./news/newsSlice");
-const persistConfig = {
+const authSlice_1 = require("./auth/authSlice");
+const persistConfigNews = {
     key: 'news',
     version: 1,
     storage: storage_1.default,
     blacklist: ['news'],
 };
+const persistConfigAuth = {
+    key: 'token',
+    version: 1,
+    storage: storage_1.default,
+    whitelist: ['token'],
+};
 exports.store = (0, toolkit_1.configureStore)({
     reducer: {
-        news: (0, redux_persist_1.persistReducer)(persistConfig, newsSlice_1.newsReducer),
+        auth: (0, redux_persist_1.persistReducer)(persistConfigAuth, authSlice_1.authReducer),
+        news: (0, redux_persist_1.persistReducer)(persistConfigNews, newsSlice_1.newsReducer),
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: {

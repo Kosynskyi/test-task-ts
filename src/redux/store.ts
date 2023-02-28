@@ -10,20 +10,27 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import { themeReducer } from './theme/themeSlice';
 import { newsReducer } from './news/newsSlice';
+import { authReducer } from './auth/authSlice';
 
-const persistConfig = {
+const persistConfigNews = {
   key: 'news',
   version: 1,
   storage,
   blacklist: ['news'],
 };
 
+const persistConfigAuth = {
+  key: 'token',
+  version: 1,
+  storage,
+  whitelist: ['token'],
+};
+
 export const store = configureStore({
   reducer: {
-    // news: newsReducer,
-    news: persistReducer(persistConfig, newsReducer),
+    auth: persistReducer(persistConfigAuth, authReducer),
+    news: persistReducer(persistConfigNews, newsReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
