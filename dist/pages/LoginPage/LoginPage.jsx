@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -41,6 +50,7 @@ const authSlice_1 = require("redux/auth/authSlice");
 const LoginPage_styled_1 = require("./LoginPage.styled");
 const LoginPage = () => {
     var _a, _b;
+    const [tkn, setTkn] = (0, react_1.useState)('');
     const dispatch = (0, hooks_1.useAppDispatch)();
     const { t } = (0, react_i18next_1.useTranslation)();
     const [showPassword, setShowPassword] = (0, react_1.useState)(false);
@@ -49,17 +59,41 @@ const LoginPage = () => {
         event.preventDefault();
     };
     const { register, handleSubmit, reset, formState: { errors }, } = (0, react_hook_form_1.useForm)({ mode: 'onBlur' });
+    const getIdToken = () => __awaiter(void 0, void 0, void 0, function* () {
+        const auth = (0, auth_1.getAuth)();
+        const user = auth.currentUser;
+        try {
+            const idToken = yield user.getIdToken();
+            console.log('idToken', idToken);
+            return idToken;
+        }
+        catch (err) {
+            console.error(err);
+            return '';
+        }
+    });
     const onSubmit = data => {
         console.log(data);
         const auth = (0, auth_1.getAuth)();
+        console.log('auth', auth);
         const login = data.login + '@gmail.com';
         const password = data.password + '1';
+        let tt = '';
         (0, auth_1.signInWithEmailAndPassword)(auth, login, password)
-            .then(({ user }) => {
+            .then(userCredential => {
+            userCredential.user.getIdToken().then(token => {
+                console.log(token);
+                tt = token;
+                return token;
+            });
+            getIdToken();
+            console.log('getIdToken()', getIdToken());
+            console.log(tkn);
+            console.log(tt);
             dispatch((0, authSlice_1.setAuth)({
-                id: user.uid,
+                id: userCredential.user.uid,
                 user: data.login,
-                token: user.uid,
+                token: userCredential.user.uid,
             }));
         })
             .catch(console.error);

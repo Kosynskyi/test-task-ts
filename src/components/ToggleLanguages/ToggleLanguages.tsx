@@ -1,27 +1,46 @@
-import React, { useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-import { Box, IconButton } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import LanguageIcon from '@mui/icons-material/Language';
 
-const ToggleLanguages: React.FC = () => {
+const ToggleLanguages: FC = () => {
   const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState('en');
 
-  const toggleLang = (lang: string) => {
-    language === 'uk' || language === 'ru-UA'
-      ? setLanguage('en')
-      : setLanguage('uk');
+  const switchLang = (lang: string) => {
     i18n.changeLanguage(lang);
   };
 
   return (
-    <Box>
-      <IconButton
+    <Box
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+    >
+      <LanguageIcon sx={{ mr: 1 }} />
+      <Button
+        sx={{
+          p: 0,
+          color: 'inherit',
+          minWidth: '25px',
+          mr: 1,
+        }}
         aria-label="switch language"
-        onClick={() => toggleLang(language)}
+        onClick={() => switchLang('en')}
       >
-        {language}
-      </IconButton>
+        EN
+      </Button>
+      <Typography>|</Typography>
+      <Button
+        sx={{
+          p: 0,
+          color: 'inherit',
+          minWidth: '25px',
+          ml: 1,
+        }}
+        aria-label="switch language"
+        onClick={() => switchLang('ua')}
+      >
+        UA
+      </Button>
     </Box>
   );
 };
