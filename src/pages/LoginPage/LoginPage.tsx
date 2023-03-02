@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  // signInWithCustomToken,
-} from 'firebase/auth';
-// import { getMessaging, getToken } from 'firebase/messaging';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import {
   Box,
@@ -27,15 +22,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useAppDispatch } from 'hooks/hooks';
 import { setAuth } from 'redux/auth/authSlice';
 import { StyledLink } from './LoginPage.styled';
-// import { initializeApp } from 'firebase/app';
 
 const LoginPage: React.FC = () => {
   interface IInputs {
     login: string;
     password: string;
   }
-
-  const [tkn, setTkn] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -50,44 +42,6 @@ const LoginPage: React.FC = () => {
   ) => {
     event.preventDefault();
   };
-  // ============================================================
-
-  // function requestPermission() {
-  //   console.log('Requesting permission...');
-  //   Notification.requestPermission().then(permission => {
-  //     if (permission === 'granted') {
-  //       console.log('Notification permission granted.');
-  //     }
-  //   });
-  // }
-
-  // const getFirebaseToken = async (name: string, pswd: string) => {
-  //   // Тут будуть вказані користувацькі дані
-  //   let username = name;
-  //   let password = pswd;
-
-  //   // Ініціалізація фікстури Firebase
-  //   const firebaseConfig = {
-  //     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  //     authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
-  //     projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
-  //     storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUSKET,
-  //     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
-  //     appId: process.env.REACT_APP_FIREBASE_APPID,
-  //   };
-
-  //   const firebase: any = initializeApp(firebaseConfig);
-  //   const auth = firebase.auth();
-
-  //   // Авторизація та отримання Access Token
-  //   const user = await auth.signInWithEmailAndPassword(username, password);
-  //   const token = user.idToken;
-  //   console.log(token);
-
-  //   return token;
-  // };
-
-  // ============================================================
 
   const {
     register,
@@ -96,50 +50,24 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<IInputs>({ mode: 'onBlur' });
 
-  const getIdToken = async (): Promise<string> => {
-    const auth = getAuth();
-    const user = auth.currentUser!;
-
-    try {
-      const idToken = await user.getIdToken();
-      console.log('idToken', idToken);
-      return idToken;
-    } catch (err) {
-      console.error(err);
-      return '';
-    }
-  };
-
   const onSubmit: SubmitHandler<IInputs> = data => {
-    console.log(data);
+    // console.log(data);
     const auth = getAuth();
     console.log('auth', auth);
     const login = data.login + '@gmail.com';
     const password = data.password + '1';
-    let tt = '';
 
     signInWithEmailAndPassword(auth, login, password)
       .then(userCredential => {
         userCredential.user.getIdToken().then(token => {
-          // Використовуйте переданий токен для доступу до даних
-          console.log(token);
-          tt = token;
-          // setTkn(token);
-          return token;
+          dispatch(
+            setAuth({
+              id: userCredential.user.uid,
+              user: data.login,
+              token,
+            })
+          );
         });
-        getIdToken();
-        console.log('getIdToken()', getIdToken());
-
-        console.log(tkn);
-        console.log(tt);
-
-        dispatch(
-          setAuth({
-            id: userCredential.user.uid,
-            user: data.login,
-            token: userCredential.user.uid,
-          })
-        );
       })
       .catch(console.error);
 

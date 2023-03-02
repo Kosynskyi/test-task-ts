@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken } from 'firebase/messaging';
+// import { getMessaging, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -11,6 +11,7 @@ const firebaseConfig = {
   vapidKey: process.env.REACT_APP_FIREBASE_VAPID,
 };
 
+// eslint-disable-next-line
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
-getToken(messaging, { vapidKey: firebaseConfig.vapidKey });
+// const messaging = getMessaging(app);
+// getToken(messaging, { vapidKey: firebaseConfig.vapidKey });

@@ -5,6 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
 const ToggleLanguages: FC = () => {
+  // eslint-disable-next-line
   const { t, i18n } = useTranslation();
 
   const switchLang = (lang: string) => {
