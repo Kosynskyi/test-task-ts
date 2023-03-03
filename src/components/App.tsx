@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,6 +6,9 @@ import { Box } from '@mui/material';
 import SharedLayout from './SharedLayout';
 import Skeleton from './Skeleton';
 import BackToTop from './BackToTop';
+import { useAppDispatch } from 'hooks/hooks';
+import { useAuth } from 'redux/auth/authSelectors';
+import { fetchCurrentUser } from 'redux/auth/authOperations';
 
 import PrivateRoute from './HOCs/PrivateRoute';
 import PublicRoute from './HOCs/PublicRoute';
@@ -18,13 +21,22 @@ const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 function App() {
+  const dispatch = useAppDispatch();
+  const { token } = useAuth();
+  console.log(token);
+
+  useEffect(() => {
+    if (!token) return;
+
+    dispatch(fetchCurrentUser());
+  }, [dispatch, token]);
+
   return (
     <Suspense fallback={<Skeleton />}>
       <Box>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<HomePage />} />
-
             <Route element={<PublicRoute />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="registration" element={<RegistrationPage />} />

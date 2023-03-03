@@ -27,6 +27,7 @@
   },
   "registrationPage": {
     "title": "Welcome to the new user registration form",
+    "helperTextName": "Name",
     "helperTextLogin": "Login",
     "helperTextPassword": "Password",
     "formButton": "Sign up",

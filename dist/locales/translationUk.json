@@ -22,11 +22,12 @@
         "helperTextLogin": "Логін",
         "helperTextPassword": "Пароль",
         "formButton": "Вхід",
-        "additionalText": "Не маєш аккаунта? Ось тут ти можеш ",
+        "additionalText": "Немаєш аккаунта? Ось тут ти можеш ",
         "additionalTextLink": "зареєструватись"
     },
     "registrationPage": {
         "title": "Ласкаво просимо на формі реєстрації нового користувача",
+        "helperTextName": "Ім'я",
         "helperTextLogin": "Логін",
         "helperTextPassword": "Пароль",
         "formButton": "Зареєструватись",

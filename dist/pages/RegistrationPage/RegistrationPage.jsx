@@ -30,17 +30,19 @@ const react_1 = __importStar(require("react"));
 const react_hook_form_1 = require("react-hook-form");
 const react_i18next_1 = require("react-i18next");
 require("../../i18n");
-const auth_1 = require("firebase/auth");
 const material_1 = require("@mui/material");
 const Person_1 = __importDefault(require("@mui/icons-material/Person"));
+const Mail_1 = __importDefault(require("@mui/icons-material/Mail"));
 const Lock_1 = __importDefault(require("@mui/icons-material/Lock"));
 const Visibility_1 = __importDefault(require("@mui/icons-material/Visibility"));
 const VisibilityOff_1 = __importDefault(require("@mui/icons-material/VisibilityOff"));
 const hooks_1 = require("hooks/hooks");
-const authSlice_1 = require("redux/auth/authSlice");
+const authOperations_1 = require("redux/auth/authOperations");
+const authSelectors_1 = require("redux/auth/authSelectors");
 const RegistrationPage_styled_1 = require("./RegistrationPage.styled");
 const RegistrationPage = () => {
-    var _a, _b;
+    var _a, _b, _c;
+    const { isLoading } = (0, authSelectors_1.useAuth)();
     const dispatch = (0, hooks_1.useAppDispatch)();
     const { t } = (0, react_i18next_1.useTranslation)();
     const [showPassword, setShowPassword] = (0, react_1.useState)(false);
@@ -50,22 +52,7 @@ const RegistrationPage = () => {
     };
     const { register, handleSubmit, reset, formState: { errors }, } = (0, react_hook_form_1.useForm)({ mode: 'onBlur' });
     const onSubmit = data => {
-        console.log(data);
-        const auth = (0, auth_1.getAuth)();
-        console.log(auth);
-        const login = data.login + '@gmail.com';
-        const password = data.password + '1';
-        (0, auth_1.createUserWithEmailAndPassword)(auth, login, password)
-            .then(({ user }) => {
-            console.log(2222222222);
-            console.log('user ', user);
-            dispatch((0, authSlice_1.setAuth)({
-                id: user.uid,
-                user: data.login,
-                token: user.uid,
-            }));
-        })
-            .catch(console.error);
+        dispatch((0, authOperations_1.registration)(data));
         reset();
     };
     return (<material_1.Box sx={{
@@ -88,16 +75,29 @@ const RegistrationPage = () => {
           </material_1.Typography>
           <material_1.Box component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             
-            <material_1.TextField id="login" type="text" size="small" label={t('registrationPage.helperTextLogin')} sx={{ width: '100%' }} InputProps={{
+            <material_1.TextField id="name" type="text" size="small" label={t('registrationPage.helperTextName')} sx={{ width: '100%' }} InputProps={{
             startAdornment: (<material_1.InputAdornment position="start">
                     <Person_1.default />
                   </material_1.InputAdornment>),
-        }} variant="standard" margin="dense" {...register('login', {
+        }} variant="standard" margin="dense" {...register('name', {
         required: 'required',
         maxLength: { value: 25, message: 'maximum 25 symbols' },
     })}/>
-            {errors.login && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
-                {(errors === null || errors === void 0 ? void 0 : errors.login) && ((_a = errors === null || errors === void 0 ? void 0 : errors.login) === null || _a === void 0 ? void 0 : _a.message)}
+            {errors.name && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
+                {(errors === null || errors === void 0 ? void 0 : errors.name) && ((_a = errors === null || errors === void 0 ? void 0 : errors.name) === null || _a === void 0 ? void 0 : _a.message)}
+              </material_1.Typography>)}
+
+            
+            <material_1.TextField id="login" type="email" size="small" label={t('registrationPage.helperTextLogin')} sx={{ width: '100%' }} InputProps={{
+            startAdornment: (<material_1.InputAdornment position="start">
+                    <Mail_1.default />
+                  </material_1.InputAdornment>),
+        }} variant="standard" margin="dense" {...register('email', {
+        required: 'required',
+        maxLength: { value: 25, message: 'maximum 25 symbols' },
+    })}/>
+            {errors.email && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
+                {(errors === null || errors === void 0 ? void 0 : errors.email) && ((_b = errors === null || errors === void 0 ? void 0 : errors.email) === null || _b === void 0 ? void 0 : _b.message)}
               </material_1.Typography>)}
 
             
@@ -115,10 +115,10 @@ const RegistrationPage = () => {
         minLength: { value: 4, message: 'minimum 4 symbols' },
     })}/>
             {errors.password && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
-                {(errors === null || errors === void 0 ? void 0 : errors.password) && ((_b = errors === null || errors === void 0 ? void 0 : errors.password) === null || _b === void 0 ? void 0 : _b.message)}
+                {(errors === null || errors === void 0 ? void 0 : errors.password) && ((_c = errors === null || errors === void 0 ? void 0 : errors.password) === null || _c === void 0 ? void 0 : _c.message)}
               </material_1.Typography>)}
 
-            <material_1.Button type="submit" variant="contained" sx={{
+            <material_1.Button type="submit" variant="contained" disabled={isLoading} sx={{
             backgroundColor: '#57b846d7',
             '&:hover': {
                 backgroundColor: '#57b846',

@@ -1,4 +1,5 @@
-import React from 'react';
+import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
 
@@ -6,13 +7,18 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
 import { useAppDispatch } from 'hooks/hooks';
-import { logOut } from 'redux/auth/authSlice';
+import { logOut } from 'redux/auth/authOperations';
 import { useAuth } from 'redux/auth/authSelectors';
 
-const UserMenu: React.FC = () => {
+const UserMenu: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
+
+  const handleClick = (): void => {
+    dispatch(logOut());
+    <Navigate to="/" />;
+  };
 
   return (
     <Box
@@ -26,18 +32,17 @@ const UserMenu: React.FC = () => {
       <Typography variant="body1" component="p">
         {t('userMenu.greeting')}{' '}
         <Typography variant="body1" component="span" sx={{ fontWeight: 800 }}>
-          {user}
+          {user?.name}
         </Typography>
       </Typography>
+
       <IconButton
         // variant="outlined"
         aria-label="log out"
         sx={{ color: 'red', marginLeft: '15px' }}
-        // disabled={isLoading}
+        disabled={isLoading}
         type="submit"
-        onClick={() => {
-          dispatch(logOut());
-        }}
+        onClick={handleClick}
       >
         <Logout />
       </IconButton>

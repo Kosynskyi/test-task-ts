@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import {
   Box,
@@ -15,19 +14,24 @@ import {
   IconButton,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import MailIcon from '@mui/icons-material/Mail';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useAppDispatch } from 'hooks/hooks';
-import { setAuth } from 'redux/auth/authSlice';
+import { registration } from 'redux/auth/authOperations';
+import { useAuth } from 'redux/auth/authSelectors';
 import { StyledLink } from './RegistrationPage.styled';
 
 const RegistrationPage: React.FC = () => {
   type Inputs = {
-    login: string;
+    name: string;
+    email: string;
     password: string;
   };
+
+  const { isLoading } = useAuth();
 
   const dispatch = useAppDispatch();
 
@@ -51,27 +55,7 @@ const RegistrationPage: React.FC = () => {
   } = useForm<Inputs>({ mode: 'onBlur' });
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
-    const auth = getAuth();
-    console.log(auth);
-    const login = data.login + '@gmail.com';
-    const password = data.password + '1';
-
-    createUserWithEmailAndPassword(auth, login, password)
-      .then(({ user }) => {
-        console.log(2222222222);
-        console.log('user ', user);
-
-        dispatch(
-          setAuth({
-            id: user.uid,
-            user: data.login,
-            token: user.uid,
-          })
-        );
-      })
-      .catch(console.error);
-
+    dispatch(registration(data));
     reset();
   };
 
@@ -103,12 +87,12 @@ const RegistrationPage: React.FC = () => {
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
-            {/* input for login */}
+            {/* input for name */}
             <TextField
-              id="login"
+              id="name"
               type="text"
               size="small"
-              label={t('registrationPage.helperTextLogin')}
+              label={t('registrationPage.helperTextName')}
               sx={{ width: '100%' }}
               InputProps={{
                 startAdornment: (
@@ -119,14 +103,41 @@ const RegistrationPage: React.FC = () => {
               }}
               variant="standard"
               margin="dense"
-              {...register('login', {
+              {...register('name', {
                 required: 'required',
                 maxLength: { value: 25, message: 'maximum 25 symbols' },
               })}
             />
-            {errors.login && (
+            {errors.name && (
               <Typography sx={{ color: 'red' }} variant="caption" role="alert">
-                {errors?.login && errors?.login?.message}
+                {errors?.name && errors?.name?.message}
+              </Typography>
+            )}
+
+            {/* input for login */}
+            <TextField
+              id="login"
+              type="email"
+              size="small"
+              label={t('registrationPage.helperTextLogin')}
+              sx={{ width: '100%' }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <MailIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+              margin="dense"
+              {...register('email', {
+                required: 'required',
+                maxLength: { value: 25, message: 'maximum 25 symbols' },
+              })}
+            />
+            {errors.email && (
+              <Typography sx={{ color: 'red' }} variant="caption" role="alert">
+                {errors?.email && errors?.email?.message}
               </Typography>
             )}
 
@@ -176,6 +187,7 @@ const RegistrationPage: React.FC = () => {
             <Button
               type="submit"
               variant="contained"
+              disabled={isLoading}
               sx={{
                 backgroundColor: '#57b846d7',
                 '&:hover': {

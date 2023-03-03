@@ -30,17 +30,18 @@ const react_1 = __importStar(require("react"));
 const react_hook_form_1 = require("react-hook-form");
 const react_i18next_1 = require("react-i18next");
 require("../../i18n");
-const auth_1 = require("firebase/auth");
 const material_1 = require("@mui/material");
 const Person_1 = __importDefault(require("@mui/icons-material/Person"));
 const Lock_1 = __importDefault(require("@mui/icons-material/Lock"));
 const Visibility_1 = __importDefault(require("@mui/icons-material/Visibility"));
 const VisibilityOff_1 = __importDefault(require("@mui/icons-material/VisibilityOff"));
 const hooks_1 = require("hooks/hooks");
-const authSlice_1 = require("redux/auth/authSlice");
+const authOperations_1 = require("redux/auth/authOperations");
+const authSelectors_1 = require("redux/auth/authSelectors");
 const LoginPage_styled_1 = require("./LoginPage.styled");
 const LoginPage = () => {
     var _a, _b;
+    const { isLoading } = (0, authSelectors_1.useAuth)();
     const dispatch = (0, hooks_1.useAppDispatch)();
     const { t } = (0, react_i18next_1.useTranslation)();
     const [showPassword, setShowPassword] = (0, react_1.useState)(false);
@@ -49,22 +50,11 @@ const LoginPage = () => {
         event.preventDefault();
     };
     const { register, handleSubmit, reset, formState: { errors }, } = (0, react_hook_form_1.useForm)({ mode: 'onBlur' });
+    const email = 'admin8@gmail.com';
+    const password = '123458@gmail.com';
     const onSubmit = data => {
-        const auth = (0, auth_1.getAuth)();
-        console.log('auth', auth);
-        const login = data.login + '@gmail.com';
-        const password = data.password + '1';
-        (0, auth_1.signInWithEmailAndPassword)(auth, login, password)
-            .then(userCredential => {
-            userCredential.user.getIdToken().then(token => {
-                dispatch((0, authSlice_1.setAuth)({
-                    id: userCredential.user.uid,
-                    user: data.login,
-                    token,
-                }));
-            });
-        })
-            .catch(console.error);
+        console.log(data);
+        dispatch((0, authOperations_1.logIn)({ email, password }));
         reset();
     };
     return (<material_1.Box sx={{
@@ -91,12 +81,12 @@ const LoginPage = () => {
             startAdornment: (<material_1.InputAdornment position="start">
                     <Person_1.default />
                   </material_1.InputAdornment>),
-        }} variant="standard" margin="dense" {...register('login', {
+        }} variant="standard" margin="dense" {...register('email', {
         required: 'required',
         maxLength: { value: 25, message: 'maximum 25 symbols' },
     })}/>
-            {errors.login && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
-                {(errors === null || errors === void 0 ? void 0 : errors.login) && ((_a = errors === null || errors === void 0 ? void 0 : errors.login) === null || _a === void 0 ? void 0 : _a.message)}
+            {errors.email && (<material_1.Typography sx={{ color: 'red' }} variant="caption" role="alert">
+                {(errors === null || errors === void 0 ? void 0 : errors.email) && ((_a = errors === null || errors === void 0 ? void 0 : errors.email) === null || _a === void 0 ? void 0 : _a.message)}
               </material_1.Typography>)}
 
             
@@ -117,7 +107,7 @@ const LoginPage = () => {
                 {(errors === null || errors === void 0 ? void 0 : errors.password) && ((_b = errors === null || errors === void 0 ? void 0 : errors.password) === null || _b === void 0 ? void 0 : _b.message)}
               </material_1.Typography>)}
 
-            <material_1.Button type="submit" variant="contained" sx={{
+            <material_1.Button type="submit" variant="contained" disabled={isLoading} sx={{
             backgroundColor: '#57b846d7',
             '&:hover': {
                 backgroundColor: '#57b846',

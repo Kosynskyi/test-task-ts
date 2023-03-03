@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import {
   Box,
@@ -20,14 +20,18 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useAppDispatch } from 'hooks/hooks';
-import { setAuth } from 'redux/auth/authSlice';
+import { logIn } from 'redux/auth/authOperations';
+import { useAuth } from 'redux/auth/authSelectors';
+// import { setAuth } from 'redux/auth/authSlice';
 import { StyledLink } from './LoginPage.styled';
 
 const LoginPage: React.FC = () => {
   interface IInputs {
-    login: string;
+    email: string;
     password: string;
   }
+
+  const { isLoading } = useAuth();
 
   const dispatch = useAppDispatch();
 
@@ -50,26 +54,12 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<IInputs>({ mode: 'onBlur' });
 
-  const onSubmit: SubmitHandler<IInputs> = data => {
-    // console.log(data);
-    const auth = getAuth();
-    console.log('auth', auth);
-    const login = data.login + '@gmail.com';
-    const password = data.password + '1';
+  const email = 'admin8@gmail.com';
+  const password = '123458@gmail.com';
 
-    signInWithEmailAndPassword(auth, login, password)
-      .then(userCredential => {
-        userCredential.user.getIdToken().then(token => {
-          dispatch(
-            setAuth({
-              id: userCredential.user.uid,
-              user: data.login,
-              token,
-            })
-          );
-        });
-      })
-      .catch(console.error);
+  const onSubmit: SubmitHandler<IInputs> = data => {
+    console.log(data);
+    dispatch(logIn({ email, password }));
 
     reset();
   };
@@ -118,14 +108,14 @@ const LoginPage: React.FC = () => {
               }}
               variant="standard"
               margin="dense"
-              {...register('login', {
+              {...register('email', {
                 required: 'required',
                 maxLength: { value: 25, message: 'maximum 25 symbols' },
               })}
             />
-            {errors.login && (
+            {errors.email && (
               <Typography sx={{ color: 'red' }} variant="caption" role="alert">
-                {errors?.login && errors?.login?.message}
+                {errors?.email && errors?.email?.message}
               </Typography>
             )}
 
@@ -175,6 +165,7 @@ const LoginPage: React.FC = () => {
             <Button
               type="submit"
               variant="contained"
+              disabled={isLoading}
               sx={{
                 backgroundColor: '#57b846d7',
                 '&:hover': {

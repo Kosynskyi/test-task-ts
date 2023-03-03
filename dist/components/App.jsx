@@ -34,6 +34,9 @@ const material_1 = require("@mui/material");
 const SharedLayout_1 = __importDefault(require("./SharedLayout"));
 const Skeleton_1 = __importDefault(require("./Skeleton"));
 const BackToTop_1 = __importDefault(require("./BackToTop"));
+const hooks_1 = require("hooks/hooks");
+const authSelectors_1 = require("redux/auth/authSelectors");
+const authOperations_1 = require("redux/auth/authOperations");
 const PrivateRoute_1 = __importDefault(require("./HOCs/PrivateRoute"));
 const PublicRoute_1 = __importDefault(require("./HOCs/PublicRoute"));
 const HomePage = (0, react_1.lazy)(() => Promise.resolve().then(() => __importStar(require('pages/HomePage'))));
@@ -43,12 +46,19 @@ const NewsPage = (0, react_1.lazy)(() => Promise.resolve().then(() => __importSt
 const ProfilePage = (0, react_1.lazy)(() => Promise.resolve().then(() => __importStar(require('pages/ProfilePage'))));
 const NotFoundPage = (0, react_1.lazy)(() => Promise.resolve().then(() => __importStar(require('pages/NotFoundPage'))));
 function App() {
+    const dispatch = (0, hooks_1.useAppDispatch)();
+    const { token } = (0, authSelectors_1.useAuth)();
+    console.log(token);
+    (0, react_1.useEffect)(() => {
+        if (!token)
+            return;
+        dispatch((0, authOperations_1.fetchCurrentUser)());
+    }, [dispatch, token]);
     return (<react_1.Suspense fallback={<Skeleton_1.default />}>
       <material_1.Box>
         <react_router_dom_1.Routes>
           <react_router_dom_1.Route path="/" element={<SharedLayout_1.default />}>
             <react_router_dom_1.Route index element={<HomePage />}/>
-
             <react_router_dom_1.Route element={<PublicRoute_1.default />}>
               <react_router_dom_1.Route path="login" element={<LoginPage />}/>
               <react_router_dom_1.Route path="registration" element={<RegistrationPage />}/>

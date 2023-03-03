@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import AuthNav from 'components/AuthNav';
@@ -10,7 +10,7 @@ import { useAuth } from 'redux/auth/authSelectors';
 
 import { Box } from '@mui/material';
 
-const SharedLayout: React.FC = () => {
+const SharedLayout: FC = () => {
   const { isLoggedIn } = useAuth();
 
   return (
