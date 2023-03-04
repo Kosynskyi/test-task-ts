@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import NewsList from 'components/NewsList';
 
-const NewsPage: React.FC = () => {
+const NewsPage: FC = () => {
   return (
     <>
       <NewsList />

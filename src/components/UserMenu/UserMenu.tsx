@@ -2,13 +2,12 @@ import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-
-import { Box, IconButton, Typography } from '@mui/material';
-import { Logout } from '@mui/icons-material';
-
 import { useAppDispatch } from 'hooks/hooks';
 import { logOut } from 'redux/auth/authOperations';
 import { useAuth } from 'redux/auth/authSelectors';
+
+import { Box, IconButton, Typography } from '@mui/material';
+import { Logout } from '@mui/icons-material';
 
 const UserMenu: FC = () => {
   const { t } = useTranslation();

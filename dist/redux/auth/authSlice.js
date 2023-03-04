@@ -56,7 +56,6 @@ exports.authSlice = (0, toolkit_1.createSlice)({
             state.isFetchingCurrentUser = true;
         });
         builder.addCase(authOperations_1.fetchCurrentUser.fulfilled, (state, action) => {
-            console.log(action.payload);
             state.user = action.payload;
             state.isLoggedIn = true;
             state.isLoading = false;

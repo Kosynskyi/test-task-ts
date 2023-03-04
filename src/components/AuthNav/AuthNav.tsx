@@ -1,10 +1,10 @@
-import React from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
 import { Box, List, ListItem, Button } from '@mui/material/';
 import { StyledNavLink } from './AuthNav.styled';
 
-const AuthNav: React.FC = () => {
+const AuthNav: FC = () => {
   const { t } = useTranslation();
 
   return (

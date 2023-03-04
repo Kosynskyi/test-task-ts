@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
 import { Box } from '@mui/material';
 
-const Skeleton: React.FC = () => {
+const Skeleton: FC = () => {
   return (
     <Box
       sx={{

@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_router_dom_1 = require("react-router-dom");
 const react_i18next_1 = require("react-i18next");
 require("../../i18n");
-const material_1 = require("@mui/material");
-const icons_material_1 = require("@mui/icons-material");
 const hooks_1 = require("hooks/hooks");
 const authOperations_1 = require("redux/auth/authOperations");
 const authSelectors_1 = require("redux/auth/authSelectors");
+const material_1 = require("@mui/material");
+const icons_material_1 = require("@mui/icons-material");
 const UserMenu = () => {
     const { t } = (0, react_i18next_1.useTranslation)();
     const dispatch = (0, hooks_1.useAppDispatch)();

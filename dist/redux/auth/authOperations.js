@@ -59,7 +59,6 @@ exports.logOut = (0, toolkit_1.createAsyncThunk)('auth/logOut', (_, { rejectWith
 exports.fetchCurrentUser = (0, toolkit_1.createAsyncThunk)('auth/fetchCurrentUser', (_, thunkAPI) => __awaiter(void 0, void 0, void 0, function* () {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    console.log(persistedToken);
     if (!persistedToken)
         return thunkAPI.rejectWithValue(Error);
     token.set(persistedToken);

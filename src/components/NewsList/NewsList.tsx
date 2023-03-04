@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 
-const NewsList: React.FC = () => {
+const NewsList: FC = () => {
   interface IItem {
     publishedAt: string;
     title: string;

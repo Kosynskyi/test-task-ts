@@ -1,43 +1,20 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(require("react"));
+const react_1 = require("react");
 const react_hook_form_1 = require("react-hook-form");
 const react_i18next_1 = require("react-i18next");
 require("../../i18n");
+const hooks_1 = require("hooks/hooks");
+const authOperations_1 = require("redux/auth/authOperations");
+const authSelectors_1 = require("redux/auth/authSelectors");
 const material_1 = require("@mui/material");
 const Person_1 = __importDefault(require("@mui/icons-material/Person"));
 const Lock_1 = __importDefault(require("@mui/icons-material/Lock"));
 const Visibility_1 = __importDefault(require("@mui/icons-material/Visibility"));
 const VisibilityOff_1 = __importDefault(require("@mui/icons-material/VisibilityOff"));
-const hooks_1 = require("hooks/hooks");
-const authOperations_1 = require("redux/auth/authOperations");
-const authSelectors_1 = require("redux/auth/authSelectors");
 const LoginPage_styled_1 = require("./LoginPage.styled");
 const LoginPage = () => {
     var _a, _b;
@@ -50,11 +27,12 @@ const LoginPage = () => {
         event.preventDefault();
     };
     const { register, handleSubmit, reset, formState: { errors }, } = (0, react_hook_form_1.useForm)({ mode: 'onBlur' });
-    const email = 'admin8@gmail.com';
-    const password = '123458@gmail.com';
     const onSubmit = data => {
-        console.log(data);
-        dispatch((0, authOperations_1.logIn)({ email, password }));
+        if (data.email === 'admin' && data.password === '12345') {
+            data.email = 'admin8@gmail.com';
+            data.password = '123458@gmail.com';
+        }
+        dispatch((0, authOperations_1.logIn)(data));
         reset();
     };
     return (<material_1.Box sx={{

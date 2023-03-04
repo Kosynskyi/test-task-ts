@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
-// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useAppDispatch } from 'hooks/hooks';
+import { logIn } from 'redux/auth/authOperations';
+import { useAuth } from 'redux/auth/authSelectors';
 
 import {
   Box,
@@ -18,27 +20,18 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
-import { useAppDispatch } from 'hooks/hooks';
-import { logIn } from 'redux/auth/authOperations';
-import { useAuth } from 'redux/auth/authSelectors';
-// import { setAuth } from 'redux/auth/authSlice';
 import { StyledLink } from './LoginPage.styled';
 
-const LoginPage: React.FC = () => {
+const LoginPage: FC = () => {
   interface IInputs {
     email: string;
     password: string;
   }
 
   const { isLoading } = useAuth();
-
   const dispatch = useAppDispatch();
-
   const { t } = useTranslation();
-
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const handleMouseDownPassword = (
@@ -54,13 +47,13 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<IInputs>({ mode: 'onBlur' });
 
-  const email = 'admin8@gmail.com';
-  const password = '123458@gmail.com';
-
   const onSubmit: SubmitHandler<IInputs> = data => {
-    console.log(data);
-    dispatch(logIn({ email, password }));
-
+    if (data.email === 'admin' && data.password === '12345') {
+      data.email = 'admin8@gmail.com';
+      data.password = '123458@gmail.com';
+    }
+    
+    dispatch(logIn(data))
     reset();
   };
 

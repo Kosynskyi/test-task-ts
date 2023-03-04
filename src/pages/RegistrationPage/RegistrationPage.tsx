@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import '../../i18n';
@@ -24,7 +24,7 @@ import { registration } from 'redux/auth/authOperations';
 import { useAuth } from 'redux/auth/authSelectors';
 import { StyledLink } from './RegistrationPage.styled';
 
-const RegistrationPage: React.FC = () => {
+const RegistrationPage: FC = () => {
   type Inputs = {
     name: string;
     email: string;
@@ -32,13 +32,9 @@ const RegistrationPage: React.FC = () => {
   };
 
   const { isLoading } = useAuth();
-
   const dispatch = useAppDispatch();
-
   const { t } = useTranslation();
-
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const handleMouseDownPassword = (

@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { FC } from 'react';
 import { Box, List, IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -7,7 +6,7 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { StyledNavLink } from './UserNav.styled';
 import { useAuth } from 'redux/auth/authSelectors';
 
-const UserNav: React.FC = () => {
+const UserNav: FC = () => {
   const { isLoggedIn } = useAuth();
 
   return (

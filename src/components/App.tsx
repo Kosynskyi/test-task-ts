@@ -23,7 +23,6 @@ const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 function App() {
   const dispatch = useAppDispatch();
   const { token } = useAuth();
-  console.log(token);
 
   useEffect(() => {
     if (!token) return;
@@ -37,10 +36,11 @@ function App() {
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="news" element={<NewsPage />} />
+
             <Route element={<PublicRoute />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="registration" element={<RegistrationPage />} />
-              <Route path="news" element={<NewsPage />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

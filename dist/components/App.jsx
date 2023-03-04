@@ -48,7 +48,6 @@ const NotFoundPage = (0, react_1.lazy)(() => Promise.resolve().then(() => __impo
 function App() {
     const dispatch = (0, hooks_1.useAppDispatch)();
     const { token } = (0, authSelectors_1.useAuth)();
-    console.log(token);
     (0, react_1.useEffect)(() => {
         if (!token)
             return;
@@ -59,10 +58,11 @@ function App() {
         <react_router_dom_1.Routes>
           <react_router_dom_1.Route path="/" element={<SharedLayout_1.default />}>
             <react_router_dom_1.Route index element={<HomePage />}/>
+            <react_router_dom_1.Route path="news" element={<NewsPage />}/>
+
             <react_router_dom_1.Route element={<PublicRoute_1.default />}>
               <react_router_dom_1.Route path="login" element={<LoginPage />}/>
               <react_router_dom_1.Route path="registration" element={<RegistrationPage />}/>
-              <react_router_dom_1.Route path="news" element={<NewsPage />}/>
             </react_router_dom_1.Route>
 
             <react_router_dom_1.Route element={<PrivateRoute_1.default />}>

@@ -1,9 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importDefault(require("react"));
 const react_i18next_1 = require("react-i18next");
 const material_1 = require("@mui/material");
 require("../../i18n");
@@ -17,7 +13,6 @@ const HomePage = () => {
         }}>
       <material_1.Typography variant="h2" sx={{ textAlign: 'center' }}>
         {t('home.title')}
-        
       </material_1.Typography>
     </material_1.Box>);
 };

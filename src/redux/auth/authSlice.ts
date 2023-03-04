@@ -80,7 +80,6 @@ export const authSlice = createSlice({
     builder.addCase(
       fetchCurrentUser.fulfilled,
       (state, action: PayloadAction<any>) => {
-        console.log(action.payload);
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isLoading = false;

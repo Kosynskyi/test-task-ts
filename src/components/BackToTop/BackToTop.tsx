@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-const BackToTop: React.FC = () => {
+const BackToTop: FC = () => {
   const [backToTop, setBackToTop] = useState(false);
 
   const addScroll = (): void => {
@@ -35,7 +35,7 @@ const BackToTop: React.FC = () => {
           sx={{ position: 'fixed', bottom: 20, right: 20 }}
           onClick={scrollToTop}
         >
-          <ArrowUpwardIcon sx={{ color: '#e50914' }} />
+          <ArrowUpwardIcon sx={{ color: '#57b846d7' }} />
         </IconButton>
       )}
     </>

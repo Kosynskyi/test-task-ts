@@ -11,7 +11,7 @@ const PrivateRoute: FC = () => {
       <Outlet />
     </Suspense>
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/login" />
   );
 };
 
