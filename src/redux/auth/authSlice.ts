@@ -81,11 +81,7 @@ export const authSlice = createSlice({
       fetchCurrentUser.fulfilled,
       (state, action: PayloadAction<any>) => {
         console.log(action.payload);
-        state.user = action.payload.user;
-        // state.user.name = action.payload.user?.name;
-        // state.user.email = action.payload.user?.email;
-
-        state.token = action.payload.token;
+        state.user = action.payload;
         state.isLoggedIn = true;
         state.isLoading = false;
         state.isFetchingCurrentUser = false;
