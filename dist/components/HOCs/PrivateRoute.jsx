@@ -11,7 +11,7 @@ const PrivateRoute = () => {
     const { isLoggedIn } = (0, authSelectors_1.useAuth)();
     return isLoggedIn ? (<react_1.Suspense fallback={<Skeleton_1.default />}>
       <react_router_dom_1.Outlet />
-    </react_1.Suspense>) : (<react_router_dom_1.Navigate to="/login"/>);
+    </react_1.Suspense>) : (<react_router_dom_1.Navigate to="/"/>);
 };
 exports.default = PrivateRoute;
 //# sourceMappingURL=PrivateRoute.jsx.map
