@@ -1,3 +1,5 @@
+# Код працює правильно, але чомусь на gh-pages - некоректно, а саме коли руками прописуємо якийсь маршрут в адресний рядок то вибиває помилку 404, хоча маршрут такий є.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
